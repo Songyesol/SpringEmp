@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.emp.service.impl.JobMapper">
+	<insert id="insertJob" parameterType="job">
+		INSERT INTO JOBS(JOB_ID,
+						JOB_TITLE,
+						MIN_SALARY,
+						MAX_SALARY) 
+						 VALUES(#{job_id},
+								#{job_title},
+								#{min_salary},
+								#{max_salary} )		
+	</insert>
+	<update id="updateJob" parameterType="job">
+				UPDATE JOBS 
+						<set>
+						JOB_ID =#{job_id},
+						JOB_TITLE =#{job_title},
+						<if test="min_salary !=null">MIN_SALARY=#{min_salary},</if>
+						<if test="max_salary !=null">MAX_SALARY=#{max_salary}</if>
+						</set> 
+	</update>
+	<delete id="deleteJob" parameterType="job">
+		DELETE FROM JOBS WHERE JOB_ID=#{job_id}
+	</delete>
+	<select id="getJob" parameterType="job" resultType="job">
+		SELECT JOB_ID,
+			   JOB_TITLE,
+			   MIN_SALARY,
+			   MAX_SALARY
+			   FROM JOBS 
+			   WHERE JOB_ID=#{job_id}
+	</select>
+	<select id="getSearchJob" parameterType="job" resultType="job" >
+		SELECT JOB_ID,
+			   JOB_TITLE,
+			   MIN_SALARY,
+			   MAX_SALARY
+			   FROM JOBS 
+			   ORDER BY JOB_ID ASC 
+	</select>
+</mapper>
