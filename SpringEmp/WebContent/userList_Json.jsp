@@ -38,7 +38,15 @@
 	function userDelete() {
 		//삭제 버튼 클릭
 		$('body').on('click','#btnDelete',function(){
-
+			var tr = $(this).closest("tr");
+			var id= $(this).closest("tr").find("td:first").text();
+ 			$.ajax({
+ 				url:'user/'+id,
+ 				method:'DELETE',
+ 				dataType:'json',				
+ 				contentType:'application/json', //보낼데이터 json ->@requestBody
+ 				success : userList
+ 			});
 		}); //삭제 버튼 클릭
 	}//userDelete
 	
@@ -46,8 +54,16 @@
 	function userSelect() {
 		//조회 버튼 클릭
 		$('body').on('click','#btnSelect',function(){
-
+			var id = $(this).closest("tr").find("td:first").text();
+ 			$.ajax({
+ 				url:'user/'+id,
+ 				method:'GET',
+ 				contentType:'application/json',
+ 				dataType:'json',				
+ 				success : userSelectResult
 		}); //조회 버튼 클릭
+	})
+	
 	}//userSelect
 	
 	//사용자 조회 응답
@@ -62,7 +78,16 @@
 	function userUpdate() {
 		//수정 버튼 클릭
 		$('#btnUpdate').on('click',function(){
-
+ 			$.ajax({
+ 				url:'user',
+ 				method:'PUT',
+ 				data: JSON.stringify($("#form1").serializeObject()), //응답결과가 json json.parse
+ 				dataType:'json',				
+ 				contentType:'application/json', //보낼데이터 json ->@requestBody
+ 				success : function(response){
+ 					console.table(response);
+ 				}
+ 			});
 		});//수정 버튼 클릭
 	}//userUpdate
 	
