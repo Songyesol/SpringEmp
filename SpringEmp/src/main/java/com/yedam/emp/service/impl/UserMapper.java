@@ -9,7 +9,7 @@ public interface UserMapper {
 	//등록
 	public void insertUser(UserVO vo);
 	//수정
-	public void updateUser(UserVO vo);
+	public int updateUser(UserVO vo);
 	//삭제
 	public void deleteUser(UserVO vo);
 	//단건조회

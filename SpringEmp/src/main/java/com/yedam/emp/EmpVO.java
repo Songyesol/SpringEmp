@@ -1,6 +1,11 @@
 package com.yedam.emp;
 
-import java.sql.Date;
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,12 +19,20 @@ import lombok.NoArgsConstructor;
 public class EmpVO {
 	//ctrl + shift + y = 소문자
 	//ctrl + shift + x = 대문자
+	//String은 @NotEmpty 나머지는 @NotNull
 	
+	
+	@NotEmpty
 	private String employee_id;
 	private String first_name;
+	@NotEmpty(message="last name null")
 	private String last_name;
+	@NotEmpty
 	private String email;
+	@NotEmpty
 	private String phone_number;
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date hire_date;
 	private String job_id;
 	private Integer salary;

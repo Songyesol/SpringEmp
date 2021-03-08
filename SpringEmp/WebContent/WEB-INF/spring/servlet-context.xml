@@ -21,4 +21,15 @@
 	
 	<!-- 정적인 컨텐츠 넘기기... -->
 	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
+	<!-- intercepter bean등록 -->
+	<bean id="loginIntercepter" class="com.yedam.emp.common.LoginIntercepter"></bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/"/>
+			<ref bean="loginIntercepter"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

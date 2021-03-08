@@ -38,7 +38,22 @@
 	function userDelete() {
 		//삭제 버튼 클릭
 		$('body').on('click','#btnDelete',function(){
-
+			if(! confirm('삭제하시겠습니까?')){
+				return;
+			}
+			var tr = $(this).closest("tr");
+			var id= $(this).closest("tr").find("td:first").text();
+ 			$.ajax({
+ 				url:'user/'+id,
+ 				method:'DELETE',
+ 				dataType:'json',				
+ 				contentType:'application/json', //보낼데이터 json ->@requestBody
+ 				success : function(response){
+ 					if(response == true){
+ 						tr.remove();
+ 					}
+ 				}
+ 			});
 		}); //삭제 버튼 클릭
 	}//userDelete
 	
@@ -46,8 +61,16 @@
 	function userSelect() {
 		//조회 버튼 클릭
 		$('body').on('click','#btnSelect',function(){
-
+			var id = $(this).closest("tr").find("td:first").text();
+ 			$.ajax({
+ 				url:'user/'+id,
+ 				method:'GET',
+ 				contentType:'application/json',
+ 				dataType:'json',				
+ 				success : userSelectResult
 		}); //조회 버튼 클릭
+	})
+	
 	}//userSelect
 	
 	//사용자 조회 응답
@@ -62,7 +85,22 @@
 	function userUpdate() {
 		//수정 버튼 클릭
 		$('#btnUpdate').on('click',function(){
-
+			
+ 			$.ajax({
+ 				url:'user',
+ 				method:'PUT',
+ 				data: JSON.stringify($("#form1").serializeObject()), //응답결과가 json json.parse
+ 				dataType:'json',				
+ 				contentType:'application/json', //보낼데이터 json ->@requestBody
+ 				success : function(response){
+ 					//폼필드 초기화 
+ 					document.form1.reset();
+ 					//tr태그 부분을 수정된 데이터로 교체 
+					var tr = makeTr(response);
+ 					var oldTr = $("td:contains('"+response.id+"')").parent();
+ 					oldTr.replaceWith(tr);
+ 				}
+ 			});
 		});//수정 버튼 클릭
 	}//userUpdate
 	
@@ -77,12 +115,14 @@
  			$.ajax({
  				url:'user',
  				method:'POST',
- 				data: JSON.stringify($("#form1").serializeObject()), //응답결과가 json json.parse
- 				dataType:'json',				
+ 				data: JSON.stringify($("#form1").serializeObject()), 
+ 				dataType:'json',				//응답결과가 json json.parse
  				contentType:'application/json', //보낼데이터 json ->@requestBody
  				success : function(response){
- 					console.table(response);
+ 					var tr = makeTr(response);
+ 					tr.appendTo('tbody');
  				}
+ 			
  			});
 		});//등록 버튼 클릭
 	}//userInsert
@@ -104,17 +144,22 @@
 	function userListResult(data) {
 		$("tbody").empty();
 		$.each(data,function(idx,item){
-			$('<tr>')
-			.append($('<td>').html(item.id))
-			.append($('<td>').html(item.name))
-			.append($('<td>').html(item.password))
-			.append($('<td>').html(item.role))
-			.append($('<td>').html('<button id=\'btnSelect\'>조회</button>'))
-			.append($('<td>').html('<button id=\'btnDelete\'>삭제</button>'))
-			.append($('<input type=\'hidden\' id=\'hidden_userId\'>').val(item.id))
-			.appendTo('tbody');
+			var tr = makeTr(item);
+			tr.appendTo('tbody');
 		});//each
 	}//userListResult
+	
+	//tr태그 생성해서 목록추가
+	function makeTr(item){
+		return $('<tr>')
+		.append($('<td>').html(item.id))
+		.append($('<td>').html(item.name))
+		.append($('<td>').html(item.password))
+		.append($('<td>').html(item.role))
+		.append($('<td>').html('<button id=\'btnSelect\'>조회</button>'))
+		.append($('<td>').html('<button id=\'btnDelete\'>삭제</button>'))
+		.append($('<input type=\'hidden\' id=\'hidden_userId\'>').val(item.id));
+	}
 </script>
 </head>
 <body>
@@ -165,7 +210,7 @@
 			<th class="text-center">아이디</th>
 			<th class="text-center">이름</th>
 			<th class="text-center">성별</th>
-			<th class="text-center">거주지</th>
+			<th class="text-center">역할</th>
 		</tr>
 		</thead>
 		<tbody></tbody>
