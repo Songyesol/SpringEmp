@@ -116,4 +116,7 @@
 				WHERE EMPLOYEE_ID=#{employee_id} 
 	
 	</select>
+		<select id="getTest" resultType="emp"> <!-- 결과값이 컬럼하나라면 이렇게도 가능. -->
+		select * from test
+	</select>
 </mapper>

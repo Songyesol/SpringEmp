@@ -41,5 +41,6 @@ public class EmpVO {
 	private String department_id;
 	private String department_name;
 	private String job_title;
+	private int test;
 	
 }

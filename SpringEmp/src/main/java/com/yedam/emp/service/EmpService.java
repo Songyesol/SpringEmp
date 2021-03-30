@@ -21,4 +21,6 @@ public interface EmpService {
 	public List<EmpVO> getSearchEmp(EmpSearchVO vo);
 	//record 전체건수조회
 	public int getCount(EmpSearchVO vo);
+	
+	public EmpVO getTest(EmpVO vo);
 }

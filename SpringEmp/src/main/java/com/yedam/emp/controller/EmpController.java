@@ -127,4 +127,10 @@ public class EmpController {
 		model.addAttribute("list",empService.getSearchEmp(vo));
 		return "/emp/getSearchEmp";
 	}
+	
+	@GetMapping("/getTest")
+	public String getDate(EmpVO vo) {
+		
+		return "/emp/main";
+	}
 }

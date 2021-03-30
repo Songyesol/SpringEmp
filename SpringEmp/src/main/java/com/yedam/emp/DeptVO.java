@@ -17,6 +17,7 @@ public class DeptVO {
 	private int location_id;
 	private String city;
 	private String manager_name;
+	
 	//페이징vo 추가
 	private int start;
 	private int end;

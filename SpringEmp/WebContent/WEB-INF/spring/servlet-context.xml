@@ -23,7 +23,7 @@
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	
 	<!-- intercepter bean등록 -->
-	<bean id="loginIntercepter" class="com.yedam.emp.common.LoginIntercepter"></bean>
+<bean id="loginIntercepter" class="com.yedam.emp.common.LoginIntercepter"></bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*"/>

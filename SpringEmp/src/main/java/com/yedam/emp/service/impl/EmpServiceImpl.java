@@ -43,4 +43,10 @@ public class EmpServiceImpl implements EmpService {
 		return empDAO.getCount(vo);
 	}
 
+	@Override
+	public EmpVO getTest(EmpVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

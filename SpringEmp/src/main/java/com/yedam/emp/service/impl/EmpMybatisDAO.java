@@ -39,5 +39,8 @@ public class EmpMybatisDAO {
 		public List<EmpVO> getSearchEmp(EmpVO vo){
 			return sqlSession.selectList("com.yedam.emp.service.impl.EmpMapper.getSearchEmp",vo);
 		}
+		public EmpVO getTest(EmpVO vo) {
+			return sqlSession.selectOne("com.yedam.emp.service.impl.EmpMapper.getTest",vo);
+		}
 		
 }
